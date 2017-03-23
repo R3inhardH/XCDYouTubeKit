@@ -1,3 +1,7 @@
+#### Version 2.5.6
+
+* add public interface for error handling
+
 #### Version 2.5.5
 
 * Adaptation to YouTube API change. (#314)
