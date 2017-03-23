@@ -26,7 +26,9 @@ NSString *const XCDYouTubeVideoUserInfoKey = @"Video";
 @property (nonatomic, assign, getter = isEmbedded) BOOL embedded;
 @end
 
-@implementation XCDYouTubeVideoPlayerViewController
+@implementation XCDYouTubeVideoPlayerViewController {
+    NSError *_playbackError;
+}
 
 /*
  * MPMoviePlayerViewController on iOS 7 and earlier
@@ -177,6 +179,8 @@ NSString *const XCDYouTubeVideoUserInfoKey = @"Video";
 	                            XCDMoviePlayerPlaybackDidFinishErrorUserInfoKey: error };
 	[[NSNotificationCenter defaultCenter] postNotificationName:MPMoviePlayerPlaybackDidFinishNotification object:self.moviePlayer userInfo:userInfo];
 	
+    _playbackError = error;
+    
 	if (self.isEmbedded)
 		[self.moviePlayer.view removeFromSuperview];
 	else
@@ -204,6 +208,15 @@ NSString *const XCDYouTubeVideoUserInfoKey = @"Video";
 		return;
 	
 	[self.videoOperation cancel];
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    if (_playbackError && _didDismissWithErrorBlock) {
+        _didDismissWithErrorBlock(_playbackError);
+    }
 }
 
 @end

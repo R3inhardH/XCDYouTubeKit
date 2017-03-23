@@ -11,7 +11,10 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 
+
 NS_ASSUME_NONNULL_BEGIN
+
+
 
 /**
  *  -------------------
@@ -74,6 +77,11 @@ MP_EXTERN NSString *const XCDYouTubeVideoUserInfoKey;
  *  The 11 characters YouTube video identifier.
  */
 @property (nonatomic, copy, nullable) NSString *videoIdentifier;
+
+
+
+@property (nonatomic, copy, nullable) void (^didDismissWithErrorBlock)(NSError *error);
+
 
 /**
  *  ------------------------------------------
